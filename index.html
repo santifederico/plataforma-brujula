@@ -20,10 +20,10 @@
             <label for="layer-select">SELECCIONA UNA DE LAS VARIABLES:</label>
             <select id="layer-select">
                 <option value="agua">3.1. Provisión de agua potable disponible</option>
-                <option value="cloaca">Servicio sanitarios o pozos disponibles sin contaminación</option>
-                <option value="drenaje">Disponibilidad de drenajes que eviten inundación</option>
-                <option value="energia">Conexión de energía (electricidad y gas)</option>
-                <option value="telecomunicaciones">Conexión servicios de telecomunicaciones, Internet, etc.</option>
+                <option value="cloaca">3.2. Servicio sanitarios o pozos disponibles sin contaminación</option>
+                <option value="drenaje">3.3. Disponibilidad de drenajes que eviten inundación</option>
+                <option value="energia">3.4. Conexión de energía (electricidad y gas)</option>
+                <option value="telecomunicaciones">3.5. Conexión servicios de telecomunicaciones, Internet, etc.</option>
             </select>
         </div>
         <div class="map">
@@ -101,7 +101,7 @@
         });
 
         // Cargar capa por defecto (Agua)
-        loadGeoJSON(None);
+        loadGeoJSON("agua");
     </script>
 </body>
 
