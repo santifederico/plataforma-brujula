@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de La Brújula</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header>
+    </header>
+    <main>
+        <h1>PLATAFORMA DE LA BRÚJULA</h1>
+        <h2>DERECHO A LAS INFRAESTRUCTURAS</h2>
+        <div class="selector">
+            <label for="layer-select">SELECCIONA UNA DE LAS VARIABLES:</label>
+            <select id="layer-select">
+                <option value="agua">3.1. Provisión de agua potable disponible</option>
+                <option value="cloaca">Servicio sanitarios o pozos disponibles sin contaminación</option>
+                <option value="drenaje">Disponibilidad de drenajes que eviten inundación</option>
+                <option value="energia">Conexión de energía (electricidad y gas)</option>
+                <option value="telecomunicaciones">Conexión servicios de telecomunicaciones, Internet, etc.</option>
+            </select>
+        </div>
+        <div class="map">
+            <div id="compass_map"></div>
+        </div>
+    </main>
+    <footer>
+    </footer>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        // Crear el mapa centrado en la ubicación inicial
+        let map = L.map('compass_map').setView([-26.71042, -66.04732], 9);
+
+        // Agregar capa base de OpenStreetMap
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }).addTo(map);
+
+        // Definir capas GeoJSON
+        const layers = {
+            agua: null,
+            cloaca: null,
+            energia: null
+        };
+
+        // Función para asignar color según coeficiente
+        function getColorByCoef(coef) {
+            const minColor = [150, 150, 150]; // Blanco para coeficiente 0
+            const maxColor = [0, 123, 255];  // Azul intenso para coeficiente 4
+            const factor = Math.min(Math.max(coef / 4, 0), 1);
+            const r = Math.round(minColor[0] + (maxColor[0] - minColor[0]) * factor);
+            const g = Math.round(minColor[1] + (maxColor[1] - minColor[1]) * factor);
+            const b = Math.round(minColor[2] + (maxColor[2] - minColor[2]) * factor);
+            return `rgb(${r},${g},${b})`;
+        }
+
+        // Función para cargar y agregar capas GeoJSON
+        function loadGeoJSON(layerName) {
+            if (layers[layerName]) {
+                map.addLayer(layers[layerName]);
+                return;
+            }
+            fetch(`./data/${layerName}.geojson`)
+                .then(response => response.json())
+                .then(data => {
+                    const layer = L.geoJSON(data, {
+                        style: feature => {
+                            const coef = feature.properties.coef_agua_corriente || 0;
+                            return {
+                                color: getColorByCoef(coef),
+                                weight: 2,
+                                fillOpacity: 0.5
+                            };
+                        },
+                        onEachFeature: (feature, layer) => {
+                            const coef_agua_corriente = feature.properties.coef_agua_corriente !== undefined ? feature.properties.coef_agua_corriente : 'Sin coeficiente';
+                            layer.bindPopup(`PUNTAJE: <strong>${coef_agua_corriente}</strong>`);
+                        }
+                    });
+                    layers[layerName] = layer;
+                    map.addLayer(layer);
+                })
+                .catch(error => console.error(`Error al cargar ${layerName}:`, error));
+        }
+
+        // Manejar cambios en el desplegable
+        document.getElementById('layer-select').addEventListener('change', (event) => {
+            const selectedLayer = event.target.value;
+            // Remover todas las capas antes de agregar la seleccionada
+            Object.values(layers).forEach(layer => layer && map.removeLayer(layer));
+            loadGeoJSON(selectedLayer);
+        });
+
+        // Cargar capa por defecto (Agua)
+        loadGeoJSON(None);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+.selector {
+    display: flex;
+    justify-content: left;
+    margin-bottom: 20px;
+}
+
+.map {
+    display: flex;
+    justify-content: center;
+}
+
+#compass_map {
+    height: 35rem;
+    width: 100%;
+}
