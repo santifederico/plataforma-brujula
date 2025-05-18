@@ -18,21 +18,34 @@
     border: #000 solid 1px;
 }
 
-.map {
-    display: flex;
-    justify-content: left;
-    border: #000 solid 1px;
-}
-
 #compass_map {
     height: 35rem;
     width: 50%;
     border: #000 solid 1px;
 }
 
+.titulo-plataforma {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
 .titulo-contacto {
     margin-top: 1.25rem;
     margin-bottom: 1.25rem;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(0) brightness(0) saturate(100%);
+}
+
+.map {
+    display: flex;
+    justify-content: center;
+}
+
+.map-sat {
+    width: 80%;
 }
 
 footer .nav img {
