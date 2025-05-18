@@ -1,15 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main-top {
+    display: flex;
+    border: #000 solid 1px;
+    align-items: bottom;
+}
+
 .selector {
     display: flex;
     justify-content: left;
+    align-items: center;
     margin-bottom: 20px;
+    border: #000 solid 1px;
 }
 
 .map {
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    border: #000 solid 1px;
 }
 
 #compass_map {
     height: 35rem;
-    width: 100%;
+    width: 50%;
+    border: #000 solid 1px;
 }
+
+.titulo-contacto {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+footer .nav img {
+    filter: brightness(0) saturate(100%);
+}
+
