@@ -29,6 +29,36 @@
     margin-bottom: 1.25rem;
 }
 
+.infraestructuras-derechos {
+    display: flex;
+}
+
+.bloque-grafico {
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    gap: 50px;
+}
+
+.bloque-grafico p {
+    text-align: center;
+}
+
+#resultado ul{
+    list-style: none;
+    padding: 0;
+}
+
+#valores-totales ul{
+    list-style: none;
+    padding: 0;
+}
+
+#grafico {
+            max-height: 90%;
+        }
+
 .titulo-contacto {
     margin-top: 1.25rem;
     margin-bottom: 1.25rem;
@@ -42,7 +72,7 @@
 .map {
     display: flex;
     justify-content: center;
-    
+
 }
 
 .map-sat {
@@ -58,4 +88,3 @@
 footer .nav img {
     filter: brightness(0) saturate(100%);
 }
-
