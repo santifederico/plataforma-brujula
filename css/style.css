@@ -34,10 +34,10 @@
 }
 
 .bloque-grafico {
-    padding: 1rem 2rem;
     display: flex;
     align-items: start;
     justify-content: center;
+    padding: 0;
     gap: 50px;
 }
 
@@ -55,7 +55,7 @@
     padding: 0;
 }
 
-#grafico {
+#grafico-vivienda-suelo {
             max-height: 90%;
         }
 
@@ -87,4 +87,17 @@
 
 footer .nav img {
     filter: brightness(0) saturate(100%);
+}
+
+@media (max-width: 768px) {}
+
+@media (max-width: 426px) {
+    .tablas {
+        flex-direction: column;
+    }
+
+    .grafico {
+        flex-direction: column;
+    }
+
 }
