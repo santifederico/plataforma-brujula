@@ -57,86 +57,40 @@
             </nav>
         </div>
             <div class="container">
-                <h3>Departamento de Santa María</h3>
+                <h3>Municipio de Luján</h3>
                 <p>Seleccionar el área de interés.</p>
             </div>
-            <div class="container">
-                <!-- Selector de área de interés con id para llenarlo dinámicamente -->
-                <select id="selector-area" class="form-select form-select-sm" aria-label="Seleccionar área de interés">
-                    <!-- Opciones cargadas dinámicamente -->
-                </select>
+            <!-- <label for="escala-select">Filtrar por escala:</label> -->
+            <select class="form-select form-select-sm" aria-label="Small select example" id="escala-select"></select>
+            <hr>
+            <h3>Gráfico de La Brújula según variable</h3>
+            <p>Seleccionar la variable de interés.</p>
+            <select class="form-select form-select-sm" id="selector"></select>
+            <div class="d-flex justify-content-around">
+                <div class="tablas">
+                    <p><strong>VALORES ESPECÍFICOS</strong></p>
+                    <div id="resultado"></div>
+                    <p><strong>VALORES TOTALES</strong></p>
+                    <div id="valores-totales"></div>
+                </div>
+                <div class="grafico">
+                    <p><strong>GRÁFICO DE LA BRÚJULA</strong></p>
+                    <canvas id="grafico" width="500" height="300"></canvas>
+                </div>
             </div>
-            <div class="container">
-                <hr>
-            </div>
-            <div class="container">
-                <h3>Gráfico de La Brújula según variable</h3>
-                <p>Seleccionar la variables de interés.</p>
-
-                <!-- Selector de variable -->
-                <label for="selector">Seleccionar variable:</label>
-                <select id="selector"></select>
-
-                <!-- Tabla -->
-                <table id="tabla">
-                    <thead>
-                        <tr>
-                            <th>VARIABLE</th>
-                            <th>DERECHOS</th>
-                            <th>ORGANIZACIÓN SOCIAL</th>
-                            <th>OBRAS PÚBLICAS</th>
-                            <th>NORMATIVA</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-
-            </div>
-            <div class="container">
-                <hr>
-            </div>
-            <div class="container">
-                <h3>Espacialización de resultados</h3>
-                <p>Provisión de agua potable disponible.</p>
-            </div>
-            <div class="container">
-                <iframe src="./mapa.html" width="100%" height="600px" style="border:none;"></iframe>
-            </div>
-            <div class="container">
-                <hr>
-            </div>
-            <div class="container">
-                <h3>Matriz de resultados ponderados de la dimensión de infraestructura</h3>
-                <table class="table table-striped table-hover" id="tabla">
-                    <thead>
-                        <tr>
-                            <th>Variable</th>
-                            <th>Derechos</th>
-                            <th>Organización social</th>
-                            <th>Obras públicas</th>
-                            <th>Normativa</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div class="container">
-                <hr>
-            </div>
-            <div class="container">
-                <h3>Conclusiones</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis nulla nobis
-                    similique facere quis? Minima quia at officia voluptatibus atque, blanditiis, officiis pariatur
-                    beatae distinctio rem porro mollitia dolorem.</p>
-                <br>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis nulla nobis
-                    similique facere quis? Minima quia at officia voluptatibus atque, blanditiis, officiis pariatur
-                    beatae distinctio rem porro mollitia dolorem.</p>
-                <br>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis nulla nobis
-                    similique facere quis? Minima quia at officia voluptatibus atque, blanditiis, officiis pariatur
-                    beatae distinctio rem porro mollitia dolorem.</p>
-            </div>
+            <table id="tabla" class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>VARIABLES</th>
+                        <th>DERECHOS</th>
+                        <th>ORGANIZACIÓN SOCIAL</th>
+                        <th>OBRAS PÚBLICAS</th>
+                        <th>NORMATIVA</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </main>
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
@@ -150,93 +104,148 @@
                 <li><a href="#"><img width="30" height="30" src="../assets/icons/youtube.png" alt="Youtube"></a></li>
             </ul>
         </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const urlJSON = "../json/lujan.json";
+        const dimensionActual = "VIVIENDA Y SUELO";
+        const escalaSelect = document.getElementById("escala-select");
+        const selector = document.getElementById("selector");
+        const resultado = document.getElementById("resultado");
+        const valoresTotales = document.getElementById("valores-totales");
+        const ctx = document.getElementById("grafico").getContext("2d");
 
-        <script>
-            let chart = null;
+        let datosFiltrados = [];
+        let chartInstance;
 
-            fetch('../json/santa-maria.json')
-                .then(response => response.json())
-                .then(jsonData => {
-                    const data = Object.values(jsonData);
+        function mostrarTablaPorEscala(escala) {
+            const tbody = document.querySelector("#tabla tbody");
+            tbody.innerHTML = "";
+            const datosEscala = datosFiltrados.filter(d => d.ESCALA === escala);
+            datosEscala.forEach(dato => {
+                const fila = document.createElement("tr");
+                fila.innerHTML = `
+                <td>${dato.VARIABLES}</td>
+                <td>${dato.DERECHOS}</td>
+                <td>${dato["ORGANIZACIÓN SOCIAL"]}</td>
+                <td>${dato["OBRAS PÚBLICAS"]}</td>
+                <td>${dato.NORMATIVA}</td>
+            `;
+                tbody.appendChild(fila);
+            });
+        }
 
-                    const selectorArea = document.getElementById('selector-area');
-                    const selectorVariable = document.getElementById('selector');
-                    const tbody = document.querySelector('#tabla tbody');
+        function actualizarSelector() {
+            const variablesUnicas = [...new Set(datosFiltrados
+                .filter(d => d.ESCALA === escalaSelect.value)
+                .map(d => d.VARIABLES))];
 
-                    // Obtener valores únicos de ESCALA para el selector de área
-                    const areasUnicas = [...new Set(data.map(row => row.ESCALA))];
+            selector.innerHTML = "";
+            variablesUnicas.forEach(variable => {
+                const option = document.createElement("option");
+                option.value = variable;
+                option.textContent = variable;
+                selector.appendChild(option);
+            });
 
-                    // Cargar selector de área
-                    selectorArea.innerHTML = '';
-                    areasUnicas.forEach(area => {
-                        const option = document.createElement('option');
-                        option.value = area;
-                        option.textContent = area;
-                        selectorArea.appendChild(option);
-                    });
+            if (variablesUnicas.length > 0) {
+                selector.value = variablesUnicas[0];
+                mostrarGrafico(selector.value);
+            } else {
+                if (chartInstance) chartInstance.destroy();
+                resultado.innerHTML = "<p>No hay datos disponibles.</p>";
+                valoresTotales.innerHTML = "";
+            }
+        }
 
-                    // Función para llenar selector de variables según área seleccionada
-                    function llenarVariables(area) {
-                        selectorVariable.innerHTML = '';
-                        const filtrados = data.filter(d => d.ESCALA === area);
-                        const variablesUnicas = [...new Set(filtrados.map(f => f.VARIABLE))];
-                        variablesUnicas.forEach(variable => {
-                            const option = document.createElement('option');
-                            option.value = variable;
-                            option.textContent = variable;
-                            selectorVariable.appendChild(option);
-                        });
-                    }
+        selector.addEventListener("change", () => {
+            mostrarGrafico(selector.value);
+        });
 
-                    // Función para llenar tabla según variable y área seleccionada
-                    function llenarTabla(variable, area) {
-                        tbody.innerHTML = '';
-                        const fila = data.find(d => d.VARIABLE === variable && d.ESCALA === area);
-                        if (!fila) return;
+        function mostrarGrafico(variableSeleccionada) {
+            const datos = datosFiltrados.filter(
+                d => d.ESCALA === escalaSelect.value && d.VARIABLES === variableSeleccionada
+            );
+            const dimensiones = ["DERECHOS", "OBRAS PÚBLICAS", "ORGANIZACIÓN SOCIAL",  "NORMATIVA"];
+            const valores = [];
+            resultado.innerHTML = "";
 
-                        const tr = document.createElement('tr');
-                        ['VARIABLE', 'DERECHOS', 'ORGANIZACIÓN SOCIAL', 'OBRAS PÚBLICAS', 'NORMATIVA'].forEach(key => {
-                            const td = document.createElement('td');
-                            td.textContent = fila[key] || '';
-                            tr.appendChild(td);
-                        });
-                        tbody.appendChild(tr);
-                    }
+            dimensiones.forEach(dim => {
+                const valor = datos.length > 0 ? parseFloat(datos[0][dim]) || 0 : 0;
+                valores.push(valor);
+                resultado.innerHTML += `<p><strong>${dim}:</strong> ${valor}</p>`;
+            });
 
-                    // Inicialización: primer área y variables
-                    if (areasUnicas.length > 0) {
-                        const primerArea = areasUnicas[0];
-                        selectorArea.value = primerArea;
-                        llenarVariables(primerArea);
+            const promedio = (valores.reduce((a, b) => a + b, 0) / dimensiones.length).toFixed(2);
+            valoresTotales.innerHTML = `<p><strong>Promedio:</strong> ${promedio}</p>`;
 
-                        const vars = selectorVariable.options;
-                        if (vars.length > 0) {
-                            llenarTabla(vars[0].value, primerArea);
+            if (chartInstance) chartInstance.destroy();
+
+            chartInstance = new Chart(ctx, {
+                type: "radar",
+                data: {
+                    labels: dimensiones,
+                    datasets: [{
+                        label: variableSeleccionada,
+                        data: valores,
+                        fill: true,
+                        backgroundColor: "rgba(54, 162, 235, 0.2)",
+                        borderColor: "rgba(54, 162, 235, 1)",
+                        pointBackgroundColor: "rgba(54, 162, 235, 1)"
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1
+                            }
                         }
                     }
+                }
+            });
+        }
 
-                    // Evento cambio en selector área para actualizar variables y tabla
-                    selectorArea.addEventListener('change', () => {
-                        const areaSeleccionada = selectorArea.value;
-                        llenarVariables(areaSeleccionada);
+        fetch(urlJSON)
+            .then(response => response.json())
+            .then(data => {
+                const registros = Object.values(data);
+                datosFiltrados = registros.filter(reg => reg.DIMENSION === dimensionActual);
 
-                        const vars = selectorVariable.options;
-                        if (vars.length > 0) {
-                            llenarTabla(vars[0].value, areaSeleccionada);
-                        } else {
-                            tbody.innerHTML = '';
-                        }
-                    });
-
-                    // Evento cambio en selector variable para actualizar tabla
-                    selectorVariable.addEventListener('change', () => {
-                        const areaSeleccionada = selectorArea.value;
-                        const variableSeleccionada = selectorVariable.value;
-                        llenarTabla(variableSeleccionada, areaSeleccionada);
-                    });
+                const escalasUnicas = [...new Set(datosFiltrados.map(d => d.ESCALA))];
+                escalasUnicas.forEach(escala => {
+                    const option = document.createElement("option");
+                    option.value = escala;
+                    option.textContent = escala;
+                    escalaSelect.appendChild(option);
                 });
-        </script>
-    </div>
+
+                // Inicializar con la primera escala
+                escalaSelect.value = escalasUnicas[0];
+                mostrarTablaPorEscala(escalasUnicas[0]);
+                actualizarSelector();
+            })
+            .catch(error => {
+                console.error("Error al cargar JSON:", error);
+            });
+
+        escalaSelect.addEventListener("change", () => {
+            const escala = escalaSelect.value;
+            mostrarTablaPorEscala(escala);
+            actualizarSelector();
+            if (selector.value) {
+                mostrarGrafico(selector.value);
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js"
+        integrity="sha384-RuyvpeZCxMJCqVUGFI0Do1mQrods/hhxYlcVfGPOfQtPJh0JCw12tUAZ/Mv10S7D"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

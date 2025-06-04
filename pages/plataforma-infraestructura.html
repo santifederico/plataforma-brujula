@@ -40,91 +40,62 @@
             <h2 class="titulo-plataforma">PLATAFORMA DE LA BRÚJULA</h2>
         </div>
         <div class="container">
-            <nav aria-label="...">
-                <ul class="pagination justify-content-between">
-                    <li class="page-item"><a class="page-link" href="./plataforma-vivienda-suelo.html" aria-current="page">VIVIENDA Y
-                            SUELO</a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#" aria-current="page">INFRAESTRUCTURAS</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="./plataforma-equipamiento.html">EQUIPAMIENTOS</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="./plataforma-accesibilidad.html">ACCESIBILIDAD</a>
-                    </li>
-                    <li class="page-item"><a href="./plataforma-desarrollo-local.html" class="page-link">DESARROLLO
-                            LOCAL</a></li>
-                </ul>
-            </nav>
-        </div>
             <div class="container">
-                <h3>Departamento de Santa María</h3>
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-between">
+                        <li class="page-item"><a class="page-link" href="./plataforma-vivienda-suelo.html"
+                                aria-current="page">VIVIENDA Y
+                                SUELO</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#"
+                                aria-current="page">INFRAESTRUCTURAS</a>
+                        </li>
+                        <li class="page-item"><a class="page-link"
+                                href="./plataforma-equipamiento.html">EQUIPAMIENTOS</a>
+                        </li>
+                        <li class="page-item"><a class="page-link"
+                                href="./plataforma-accesibilidad.html">ACCESIBILIDAD</a>
+                        </li>
+                        <li class="page-item"><a href="./plataforma-desarrollo-local.html" class="page-link">DESARROLLO
+                                LOCAL</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="container">
+                <h3>Municipio de Luján</h3>
                 <p>Seleccionar el área de interés.</p>
             </div>
-            <div class="container">
-                <select class="form-select form-select-sm" aria-label="Small select example">
-                    <option value="1">Localidad cabecera de Santa María</option>
-                    <option value="2">Localidad cabecera de San José</option>
-                </select>
-            </div>
-            <div class="container">
-                <hr>
-            </div>
-            <div class="container">
-                <h3>Gráfico de La Brújula según variable</h3>
-                <p>Seleccionar la variable de interés.</p>
-                <select class="form-select form-select-sm" aria-label="Small select example" id="selector"></select>
-                <div class="d-flex justify-content-around">
-                    <div class="tablas">
-                        <p><strong>VALORES ESPECÍFICOS</strong></p>
-                        <div id="resultado"></div>
-                        <p><strong>VALORES TOTALES</strong></p>
-                        <div id="valores-totales"></div>
-                    </div>
-                    <div class="grafico">
-                        <p><strong>GRÁFICO DE LA BRÚJULA</strong></p>
-                        <canvas id="grafico" width="500" height="300"></canvas>
-                    </div>
+            <!-- <label for="escala-select">Filtrar por escala:</label> -->
+            <select class="form-select form-select-sm" aria-label="Small select example" id="escala-select"></select>
+            <hr>
+            <h3>Gráfico de La Brújula según variable</h3>
+            <p>Seleccionar la variable de interés.</p>
+            <select class="form-select form-select-sm" id="selector"></select>
+            <div class="d-flex justify-content-around">
+                <div class="tablas">
+                    <p><strong>VALORES ESPECÍFICOS</strong></p>
+                    <div id="resultado"></div>
+                    <p><strong>VALORES TOTALES</strong></p>
+                    <div id="valores-totales"></div>
+                </div>
+                <div class="grafico">
+                    <p><strong>GRÁFICO DE LA BRÚJULA</strong></p>
+                    <canvas id="grafico" width="500" height="300"></canvas>
                 </div>
             </div>
-            <div class="container">
-                <hr>
-            </div>
-            <div class="container">
-                <h3>Espacialización de resultados</h3>
-                <p>Provisión de agua potable disponible.</p>
-            </div>
-            <div class="container">
-            <iframe src="./mapa.html" width="100%" height="600px" style="border:none;"></iframe>
+            <table id="tabla" class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>VARIABLES</th>
+                        <th>DERECHOS</th>
+                        <th>ORGANIZACIÓN SOCIAL</th>
+                        <th>OBRAS PÚBLICAS</th>
+                        <th>NORMATIVA</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
-            <div class="container">
-                <hr>
-            </div>
-            <div class="container">
-                <h3>Matriz de resultados ponderados de la dimensión de infraestructura</h3>
-                <table class="table table-striped table-hover" id="tabla">
-                    <thead>
-                        <tr>
-                            <th>Variable</th>
-                            <th>Derechos</th>
-                            <th>Organización social</th>
-                            <th>Obras públicas</th>
-                            <th>Normativa</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div class="container">
-                <hr>
-            </div>
-            <div class="container">
-                <h3>Conclusiones</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis nulla nobis similique facere quis? Minima quia at officia voluptatibus atque, blanditiis, officiis pariatur beatae distinctio rem porro mollitia dolorem.</p>
-                <br>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis nulla nobis similique facere quis? Minima quia at officia voluptatibus atque, blanditiis, officiis pariatur beatae distinctio rem porro mollitia dolorem.</p>
-                <br>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores perspiciatis nulla nobis similique facere quis? Minima quia at officia voluptatibus atque, blanditiis, officiis pariatur beatae distinctio rem porro mollitia dolorem.</p>
-            </div>
     </main>
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
@@ -138,110 +109,141 @@
                 <li><a href="#"><img width="30" height="30" src="../assets/icons/youtube.png" alt="Youtube"></a></li>
             </ul>
         </footer>
-
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-            let chart = null;
+            const urlJSON = "../json/lujan.json";
+            const dimensionActual = "INFRAESTRUCTURAS";
+            const escalaSelect = document.getElementById("escala-select");
+            const selector = document.getElementById("selector");
+            const resultado = document.getElementById("resultado");
+            const valoresTotales = document.getElementById("valores-totales");
+            const ctx = document.getElementById("grafico").getContext("2d");
 
-            fetch('../json/data.json')
-                .then(response => response.json())
-                .then(data => {
-                    const selector = document.getElementById('selector');
-                    const resultadoDiv = document.getElementById('resultado');
-                    const tbody = document.querySelector('#tabla tbody');
-                    const ctx = document.getElementById('grafico').getContext('2d');
+            let datosFiltrados = [];
+            let chartInstance;
 
-                    // Crear tabla y selector
-                    data.forEach(row => {
-                        if (row.Variable !== "Total") {
-                            const option = document.createElement('option');
-                            option.value = row.Variable;
-                            option.textContent = row.Variable;
-                            selector.appendChild(option);
-                        }
-                        // Mostrar valores totales
-                        const filaTotal = data.find(row => row.Variable === "Total");
-                        if (filaTotal) {
-                            const divTotales = document.getElementById('valores-totales');
-                            divTotales.innerHTML = `
-        <ul>
-            <li><strong>Derechos:</strong> ${filaTotal.Derechos}/25</li>
-            <li><strong>Organización social:</strong> ${filaTotal["Organización social"]}/25</li>
-            <li><strong>Obras públicas:</strong> ${filaTotal["Obras públicas"]}/25</li>
-            <li><strong>Normativa:</strong> ${filaTotal.Normativa}/25</li>
-        </ul>
-    `;
-                        }
+            function mostrarTablaPorEscala(escala) {
+                const tbody = document.querySelector("#tabla tbody");
+                tbody.innerHTML = "";
+                const datosEscala = datosFiltrados.filter(d => d.ESCALA === escala);
+                datosEscala.forEach(dato => {
+                    const fila = document.createElement("tr");
+                    fila.innerHTML = `
+                <td>${dato.VARIABLES}</td>
+                <td>${dato.DERECHOS}</td>
+                <td>${dato["ORGANIZACIÓN SOCIAL"]}</td>
+                <td>${dato["OBRAS PÚBLICAS"]}</td>
+                <td>${dato.NORMATIVA}</td>
+            `;
+                    tbody.appendChild(fila);
+                });
+            }
 
-                        const tr = document.createElement('tr');
-                        tr.innerHTML = `
-            <td>${row.Variable}</td>
-            <td>${row.Derechos}</td>
-            <td>${row["Organización social"]}</td>
-            <td>${row["Obras públicas"]}</td>
-            <td>${row.Normativa}</td>
-          `;
-                        tbody.appendChild(tr);
-                    });
+            function actualizarSelector() {
+                const variablesUnicas = [...new Set(datosFiltrados
+                    .filter(d => d.ESCALA === escalaSelect.value)
+                    .map(d => d.VARIABLES))];
 
-                    function actualizarVista(fila) {
-                        resultadoDiv.innerHTML = `
-            <ul>
-              <li><strong>Derechos:</strong> ${fila.Derechos}/5</li>
-              <li><strong>Organización social:</strong> ${fila["Organización social"]}/5</li>
-              <li><strong>Obras públicas:</strong> ${fila["Obras públicas"]}/5</li>
-              <li><strong>Normativa:</strong> ${fila.Normativa}/5</li>
-            </ul>
-          `;
+                selector.innerHTML = "";
+                variablesUnicas.forEach(variable => {
+                    const option = document.createElement("option");
+                    option.value = variable;
+                    option.textContent = variable;
+                    selector.appendChild(option);
+                });
 
-                        const datosRadar = [
-                            fila.Derechos,
-                            fila["Normativa"],
-                            fila["Organización social"],
-                            fila["Obras públicas"]
-                        ];
+                if (variablesUnicas.length > 0) {
+                    selector.value = variablesUnicas[0];
+                    mostrarGrafico(selector.value);
+                } else {
+                    if (chartInstance) chartInstance.destroy();
+                    resultado.innerHTML = "<p>No hay datos disponibles.</p>";
+                    valoresTotales.innerHTML = "";
+                }
+            }
 
-                        const etiquetas = ["DERECHOS", "NORMATIVA", "ORGANIZACIÓN SOCIAL", "OBRAS PÚBLICAS"];
+            selector.addEventListener("change", () => {
+                mostrarGrafico(selector.value);
+            });
 
-                        if (chart) {
-                            chart.data.datasets[0].data = datosRadar;
-                            chart.data.datasets[0].label = fila.Variable; // Actualiza la leyenda
-                            chart.update();
-                        } else {
-                            chart = new Chart(ctx, {
-                                type: 'radar',
-                                data: {
-                                    labels: etiquetas,
-                                    datasets: [{
-                                        label: fila.Variable,
-                                        data: datosRadar,
-                                        backgroundColor: 'rgba(0, 123, 255, 0.2)',
-                                        borderColor: 'rgba(0, 123, 255, 1)',
-                                        pointBackgroundColor: 'rgba(0, 123, 255, 1)'
-                                    }]
-                                },
-                                options: {
-                                    scales: {
-                                        r: {
-                                            suggestedMin: 0,
-                                            suggestedMax: 5,
-                                            ticks: { stepSize: 1 }
-                                        }
-                                    }
+            function mostrarGrafico(variableSeleccionada) {
+                const datos = datosFiltrados.filter(
+                    d => d.ESCALA === escalaSelect.value && d.VARIABLES === variableSeleccionada
+                );
+                const dimensiones = ["DERECHOS", "OBRAS PÚBLICAS", "ORGANIZACIÓN SOCIAL",  "NORMATIVA"];
+                const valores = [];
+                resultado.innerHTML = "";
+
+                dimensiones.forEach(dim => {
+                    const valor = datos.length > 0 ? parseFloat(datos[0][dim]) || 0 : 0;
+                    valores.push(valor);
+                    resultado.innerHTML += `<p><strong>${dim}:</strong> ${valor}</p>`;
+                });
+
+                const promedio = (valores.reduce((a, b) => a + b, 0) / dimensiones.length).toFixed(2);
+                valoresTotales.innerHTML = `<p><strong>Promedio:</strong> ${promedio}</p>`;
+
+                if (chartInstance) chartInstance.destroy();
+
+                chartInstance = new Chart(ctx, {
+                    type: "radar",
+                    data: {
+                        labels: dimensiones,
+                        datasets: [{
+                            label: variableSeleccionada,
+                            data: valores,
+                            fill: true,
+                            backgroundColor: "rgba(54, 162, 235, 0.2)",
+                            borderColor: "rgba(54, 162, 235, 1)",
+                            pointBackgroundColor: "rgba(54, 162, 235, 1)"
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                        scales: {
+                            r: {
+                                min: 0,
+                                max: 5,
+                                ticks: {
+                                    stepSize: 1
                                 }
-                            });
+                            }
                         }
                     }
+                });
+            }
 
-                    // Evento de cambio
-                    selector.addEventListener('change', (e) => {
-                        const seleccion = e.target.value;
-                        const fila = data.find(row => row.Variable === seleccion);
-                        if (fila) actualizarVista(fila);
+            fetch(urlJSON)
+                .then(response => response.json())
+                .then(data => {
+                    const registros = Object.values(data);
+                    datosFiltrados = registros.filter(reg => reg.DIMENSION === dimensionActual);
+
+                    const escalasUnicas = [...new Set(datosFiltrados.map(d => d.ESCALA))];
+                    escalasUnicas.forEach(escala => {
+                        const option = document.createElement("option");
+                        option.value = escala;
+                        option.textContent = escala;
+                        escalaSelect.appendChild(option);
                     });
 
-                    // Trigger inicial
-                    selector.dispatchEvent(new Event('change'));
+                    // Inicializar con la primera escala
+                    escalaSelect.value = escalasUnicas[0];
+                    mostrarTablaPorEscala(escalasUnicas[0]);
+                    actualizarSelector();
+                })
+                .catch(error => {
+                    console.error("Error al cargar JSON:", error);
                 });
+
+            escalaSelect.addEventListener("change", () => {
+                const escala = escalaSelect.value;
+                mostrarTablaPorEscala(escala);
+                actualizarSelector();
+                if (selector.value) {
+                    mostrarGrafico(selector.value);
+                }
+            });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
